@@ -11,15 +11,21 @@ services:
       - SPRING_DATA_MONGODB_URI=${MONGODB_URI}
       - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
       - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
+      - OTEL_TRACES_ENDPOINT=${OTEL_TRACES_ENDPOINT}
+      - OTEL_METRICS_ENDPOINT=${OTEL_METRICS_ENDPOINT}
+      - OTEL_LOGS_ENDPOINT=${OTEL_LOGS_ENDPOINT}
     ports:
       - '8001:8000'
     networks:
       - dbnet
+      - observability
     profiles:
       - prod
 
 networks:
   dbnet:
+    external: true
+  observability:
     external: true
 
 
