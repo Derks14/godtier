@@ -18,12 +18,12 @@ management:
   otlp:
     metrics:
       export:
-        url: ${OTEL_METRICS_ENPOINT}
+        url: ${OTEL_METRICS_ENDPOINT}
   opentelemetry:
     tracing:
       export:
         otlp:
-          endpoint: ${OTEL_TRACES_ENPOINT}
+          endpoint: ${OTEL_TRACES_ENDPOINT}
     logging:
       export:
         otlp:
