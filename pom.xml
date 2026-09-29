@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>godtier</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<version>0.1</version>
+	<name>godtier </name>
+	<description>backend server for godtier </description>
 	<url/>
 	<licenses>
 		<license/>

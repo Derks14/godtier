@@ -1,0 +1,26 @@
+services:
+  spring-app:
+    image: eclipse-temurin:25-jdk
+    container_name: godtier
+    working_dir: /app
+    volumes:
+      - /srv/godtier/target:/app
+    command: ["java", "-jar", "/app/godtier.jar"]
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATA_MONGODB_URI=${MONGODB_URI}
+      - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
+    ports:
+      - '8001:8000'
+    networks:
+      - dbnet
+    profiles:
+      - prod
+
+networks:
+  dbnet:
+    external: true
+
+
+
