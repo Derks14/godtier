@@ -24,7 +24,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Remove -DskipTests to run the test suite as part of the pipeline.
-                sh './mvnw clean package -DskipTests'
+                // -q suppresses Maven's build log noise, only errors/test output surface.
+                sh './mvnw -q clean package -DskipTests'
             }
         }
 
@@ -40,15 +41,16 @@ pipeline {
         stage('Restart container') {
             steps {
                 // .env with MONGODB_URI / REDIS_PASSWORD / CORS_ALLOWED_ORIGINS
-                // must already exist in this workspace directory.
-                sh 'docker compose --profile prod up -d --force-recreate'
+                // lives in /srv/godtier, not this workspace, so it's pointed to explicitly.
+                sh 'docker compose --env-file ${DEPLOY_DIR}/.env --profile prod up -d --force-recreate'
             }
         }
     }
 
     post {
         success {
-            echo 'godtier deployed successfully.'
+            echo 'godtier deployed successfully. Container logs:'
+            sh 'sleep 5; docker logs --tail 200 godtier'
         }
         failure {
             echo 'Build or deploy failed - godtier was not redeployed.'
