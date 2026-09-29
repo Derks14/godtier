@@ -2,7 +2,7 @@ spring:
   application:
     name: godtier
   mongodb:
-    uri: mongodb://localhost:27017/godtier
+    uri: ${SPRING_DATA_MONGODB_URI}
   data:
     mongodb:
       auto-index-creation: true
